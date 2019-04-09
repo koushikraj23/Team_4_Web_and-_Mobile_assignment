@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase :  {
-    apiKey: "AIzaSyC34RjpWBJAGg5B7pSkRS9fqVspwFIn0T4",
-    authDomain: "ibatapril2019.firebaseapp.com",
-    databaseURL: "https://ibatapril2019.firebaseio.com",
-    projectId: "ibatapril2019",
-    storageBucket: "ibatapril2019.appspot.com",
-    messagingSenderId: "651339885419"
+    apiKey: "AIzaSyAFU7dOp0342gPDMbNyLk0PoEKU1IcC7vI",
+    authDomain: "cinemas-12e49.firebaseapp.com",
+    databaseURL: "https://cinemas-12e49.firebaseio.com",
+    projectId: "cinemas-12e49",
+    storageBucket: "cinemas-12e49.appspot.com",
+    messagingSenderId: "212660798527"
   }
 
 };
