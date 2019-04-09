@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebase :  {
-    apiKey: "AIzaSyAFU7dOp0342gPDMbNyLk0PoEKU1IcC7vI",
+  apiKey: "AIzaSyAFU7dOp0342gPDMbNyLk0PoEKU1IcC7vI",
     authDomain: "cinemas-12e49.firebaseapp.com",
     databaseURL: "https://cinemas-12e49.firebaseio.com",
     projectId: "cinemas-12e49",
