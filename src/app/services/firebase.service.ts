@@ -16,22 +16,22 @@ export class FirebaseService {
     public afAuth: AngularFireAuth
   ){}
 
-  getTasks(){
+  getFoods(){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
         if(currentUser){
-          this.snapshotChangesSubscription = this.afs.collection('people').doc(currentUser.uid).collection('tasks').snapshotChanges();
+          this.snapshotChangesSubscription = this.afs.collection('User').doc(currentUser.uid).collection('foods').snapshotChanges();
           resolve(this.snapshotChangesSubscription);
         }
       })
     })
   }
 
-  getTask(taskId){
+  getFood(taskId){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
         if(currentUser){
-          this.snapshotChangesSubscription = this.afs.doc<any>('people/' + currentUser.uid + '/tasks/' + taskId).valueChanges()
+          this.snapshotChangesSubscription = this.afs.doc<any>('User/' + currentUser.uid + '/Food/' + taskId).valueChanges()
           .subscribe(snapshots => {
             resolve(snapshots);
           }, err => {
@@ -47,10 +47,10 @@ export class FirebaseService {
     this.snapshotChangesSubscription.unsubscribe();
   }
 
-  updateTask(taskKey, value){
+  updateTask(foodKey, value){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('people').doc(currentUser.uid).collection('tasks').doc(taskKey).set(value)
+      this.afs.collection('User').doc(currentUser.uid).collection('foods').doc(foodKey).set(value)
       .then(
         res => resolve(res),
         err => reject(err)
@@ -58,10 +58,10 @@ export class FirebaseService {
     })
   }
 
-  deleteTask(taskKey){
+  deleteTask(foodKey){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('people').doc(currentUser.uid).collection('tasks').doc(taskKey).delete()
+      this.afs.collection('User').doc(currentUser.uid).collection('foods').doc(foodKey).delete()
       .then(
         res => resolve(res),
         err => reject(err)
@@ -69,13 +69,14 @@ export class FirebaseService {
     })
   }
 
-  createTask(value){
+  createFood(value){
     return new Promise<any>((resolve, reject) => {
       let currentUser = firebase.auth().currentUser;
-      this.afs.collection('people').doc(currentUser.uid).collection('tasks').add({
+      this.afs.collection('User').doc(currentUser.uid).collection('foods').add({
         title: value.title,
         description: value.description,
-        image: value.image
+        image: value.image,
+        pTime:value.pTime
       })
       .then(
         res => resolve(res),
