@@ -23,7 +23,8 @@ export class UserDetailsPage implements OnInit {
       phoneNo: new FormControl('', Validators.compose([
         Validators.minLength(8),
         Validators.required
-      ])),
+      ])),gender: new FormControl('',
+      Validators.required),
       DOB: new FormControl('',
         Validators.required),
     });
@@ -36,7 +37,8 @@ export class UserDetailsPage implements OnInit {
       fName: value.fName,
       lName: value.lName,
       DOB:value.DOB,
-      phoneNo:value.phoneNo
+      phoneNo:value.phoneNo,
+      gender: value.gender 
     }
     
     console.log(data);

@@ -123,7 +123,8 @@ export class FirebaseService {
       this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').add({
         fName: value.fName,
         lName: value.lName,
-        DOB:value.DOB,
+        DOB:value.DOB,        
+        gender: value.gender ,
         phoneNo:value.phoneNo
       })
       .then(

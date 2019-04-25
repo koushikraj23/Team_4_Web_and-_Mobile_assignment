@@ -24,7 +24,24 @@
                   <ion-input clearInput type="number"  formControlName="phoneNo"></ion-input>
                 </ion-item>
                 
-    
+                <ion-list>
+                  <ion-radio-group formControlName="gender" >
+                    <ion-list-header>
+                      <ion-label>Gender</ion-label>
+                    </ion-list-header>
+                
+                    <ion-item>
+                      <ion-label>Male</ion-label>
+                      <ion-radio slot="start" value="Male" checked></ion-radio>
+                    </ion-item>
+                
+                    <ion-item>
+                      <ion-label>Female</ion-label>
+                      <ion-radio slot="start" value="Female"  ></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+  
         <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit</ion-button>
        
       </form>

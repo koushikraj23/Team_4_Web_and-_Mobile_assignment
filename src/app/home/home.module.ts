@@ -6,14 +6,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
-import { HomeResolver } from './home.resolver';
+import { HomeResolver,HomeResolver2 } from './home.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: HomePage,
     resolve: {
-      data: HomeResolver
+      data: HomeResolver,
+      data1: HomeResolver2
     }
   }
 ];
@@ -28,7 +29,7 @@ const routes: Routes = [
   ],
   declarations: [HomePage],
   providers: [
-    HomeResolver
+    HomeResolver,HomeResolver2
   ]
 })
 export class HomePageModule {}

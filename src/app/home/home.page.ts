@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { LoadingController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { FirebaseService } from '../services/firebase.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  items: Array<any>;
+ name:any
+items: Array<any>;
 
   constructor(
     public loadingCtrl: LoadingController,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,private firebaseService: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -26,6 +26,9 @@ export class HomePage implements OnInit {
   }
 
   async getData(){
+    console.log("hi")
+    
+   
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...'
     });
@@ -35,8 +38,22 @@ export class HomePage implements OnInit {
       routeData['data'].subscribe(data => {
         loading.dismiss();
         this.items = data;
+        console.log(data);
       })
     })
+    this.route.data.subscribe(routeData => {
+      routeData['data1'].subscribe(data => {
+        loading.dismiss();
+        this.name=data[0]
+        console.log(data[0]);
+       
+      })
+    })
+   
+   
+    
+     
+    
   }
 
   async presentLoading(loading) {

@@ -10,4 +10,15 @@ export class HomeResolver implements Resolve<any> {
   resolve() {
     return this.firebaseService.getFoods();
   }
+ 
+}
+@Injectable()
+export class HomeResolver2 implements Resolve<any> {
+
+  constructor(private firebaseService: FirebaseService) {}
+
+  resolve() {
+    return this.firebaseService.getUser();
+  }
+ 
 }
