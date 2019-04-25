@@ -115,4 +115,21 @@ export class FirebaseService {
       })
     })
   }
+
+  createUserDetails(value){
+   
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').add({
+        fName: value.fName,
+        lName: value.lName,
+        DOB:value.DOB,
+        phoneNo:value.phoneNo
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
 }

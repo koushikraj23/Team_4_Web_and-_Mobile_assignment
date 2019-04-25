@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>UserDetails</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding class="form-content">
+
+    <form class="form" [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+        <ion-item>
+            <ion-label  position="floating">First Name</ion-label>
+            <ion-input clearInput formControlName="fName" ></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label  position="floating">Last Name</ion-label>
+              <ion-input clearInput formControlName="lName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label  position="floating">Date Of Birth</ion-label>
+                <ion-datetime  displayFormat="DD:MM:YYYY" [(ngModel)]="myDate" formControlName="DOB"></ion-datetime>
+          
+              </ion-item>
+              <ion-item>
+                  <ion-label  position="floating">Phone Number</ion-label>
+                  <ion-input clearInput type="number"  formControlName="phoneNo"></ion-input>
+                </ion-item>
+                
+    
+        <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit</ion-button>
+       
+      </form>
+
+</ion-content>
