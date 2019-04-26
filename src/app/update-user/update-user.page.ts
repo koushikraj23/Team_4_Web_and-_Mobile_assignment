@@ -16,7 +16,7 @@ export class UpdateUserPage implements OnInit {
   fName:string;
   gender:string;
   ph_NO:any;
-
+id:any;
   constructor(  public router: Router,
     private formBuilder: FormBuilder,   
       public loadingCtrl: LoadingController,
@@ -36,7 +36,7 @@ export class UpdateUserPage implements OnInit {
            this.dob= data[0].payload.doc.data().DOB;
            this.gender= data[0].payload.doc.data().gender;
            this.ph_NO= data[0].payload.doc.data().phoneNo;
-          
+          this.id=data[0].payload.doc.id;
           }
          
         })
@@ -58,8 +58,7 @@ export class UpdateUserPage implements OnInit {
               Validators.minLength(8),
               Validators.required
             ])),
-            gender: new FormControl(this.gender,
-            Validators.required),
+       
             DOB: new FormControl(this.dob,
               Validators.required)
             });
@@ -104,20 +103,16 @@ export class UpdateUserPage implements OnInit {
     let data = {
       fName: value.fName,
       lName: value.lName,
-      gender: value.gender ,
       DOB:value.DOB,
       phoneNo:value.phoneNo
     }
     
-    // console.log(data);
-    // this.firebaseService.createUserDetails(data)
-    // .then(
-
-      
-    //   res => {
-    //     this.router.navigate(["/home"]);
-    //   }
-    // )
+    this.firebaseService.updateUser(this.id,data)
+    .then(
+      res => {
+        this.router.navigate(["/home"]);
+      }
+    )
   }
 
 

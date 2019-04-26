@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
-
+import { AngularFireDatabase } from '@angular/fire/database';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +12,10 @@ export class FirebaseService {
   private snapshotChangesSubscription: any;
 
   constructor(
+ 
     public afs: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    
   ){}
 
   getFoods(){
@@ -26,12 +28,24 @@ export class FirebaseService {
       })
     })
   }
+  getUser(){
+    
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.user.subscribe(currentUser => {
+        if(currentUser){
+          this.snapshotChangesSubscription = this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').snapshotChanges();
+          resolve(this.snapshotChangesSubscription);
+        }
+      })
+    })
+  }
 
   getFood(taskId){
     return new Promise<any>((resolve, reject) => {
       this.afAuth.user.subscribe(currentUser => {
         if(currentUser){
-          this.snapshotChangesSubscription = this.afs.doc<any>('User/' + currentUser.uid + '/Food/' + taskId).valueChanges()
+          console.log("sa"+currentUser.uid +taskId)
+          this.snapshotChangesSubscription = this.afs.doc<any>('User/' + currentUser.uid + '/foods/' + taskId).valueChanges()
           .subscribe(snapshots => {
             resolve(snapshots);
           }, err => {
@@ -57,6 +71,17 @@ export class FirebaseService {
       )
     })
   }
+  updateUser(userKey, value){
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').doc(userKey).set(value)
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
+
 
   deleteTask(foodKey){
     return new Promise<any>((resolve, reject) => {
@@ -76,7 +101,9 @@ export class FirebaseService {
         title: value.title,
         description: value.description,
         image: value.image,
-        pTime:value.pTime
+        pTime:value.pTime,
+        lat:value.lat,
+        lng:value.lng
       })
       .then(
         res => resolve(res),
@@ -84,7 +111,23 @@ export class FirebaseService {
       )
     })
   }
-
+  createUserDetails(value){
+   
+    return new Promise<any>((resolve, reject) => {
+      let currentUser = firebase.auth().currentUser;
+      this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').add({
+        fName: value.fName,
+        lName: value.lName,
+        gender: value.gender ,
+        DOB:value.DOB,
+        phoneNo:value.phoneNo
+      })
+      .then(
+        res => resolve(res),
+        err => reject(err)
+      )
+    })
+  }
   encodeImageUri(imageUri, callback) {
     var c = document.createElement('canvas');
     var ctx = c.getContext("2d");
@@ -113,24 +156,6 @@ export class FirebaseService {
           reject(err);
         })
       })
-    })
-  }
-
-  createUserDetails(value){
-   
-    return new Promise<any>((resolve, reject) => {
-      let currentUser = firebase.auth().currentUser;
-      this.afs.collection('User').doc(currentUser.uid).collection('UserDetails').add({
-        fName: value.fName,
-        lName: value.lName,
-        DOB:value.DOB,        
-        gender: value.gender ,
-        phoneNo:value.phoneNo
-      })
-      .then(
-        res => resolve(res),
-        err => reject(err)
-      )
     })
   }
 }

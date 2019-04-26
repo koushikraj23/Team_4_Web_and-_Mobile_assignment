@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetailsPage } from './details.page';
 import { DetailsResolver } from './details.resolver';
-
+import { AgmCoreModule } from '@agm/core';
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +24,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDFWvq9-Qwe5EbEwWQ6lQSlwg6Vnszu6cM'
+    })
   ],
   declarations: [DetailsPage],
   providers:[DetailsResolver]

@@ -3,26 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>New Task</ion-title>
+    <ion-title>New Food</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div>
-    <ion-row no-padding>
-      <ion-col size="6" offset="3">
-        <img [src]="image" alt="this is the image"/>
-      </ion-col>
-    </ion-row>
-    <ion-row no-padding>
-      <ion-col size="6" offset="3">
-        <ion-button fill="outline" expand="block" size="small" (click)="openImagePicker()">Change Picture</ion-button>
-      </ion-col>
-    </ion-row>
-  </div>
+  
   <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
     <ion-item>
-      <ion-label position="floating" color="primary">Title</ion-label>
+      <ion-label position="floating" color="primary">Dish</ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
     <ion-item>
@@ -33,6 +22,21 @@
       <ion-label>Preparation Time</ion-label>
       <ion-datetime formControlName="pTime" displayFormat="HH:mm" [(ngModel)]="myDate"></ion-datetime>
     </ion-item>
+    <div  >
+        <ion-row  [style.height.px]="height">
+          <ion-col size="10" offset="1">
+            <ion-content>
+                <ion-title>Where To Find</ion-title>
+              <agm-map
+              [style.height.px]="height"
+              [latitude]="lat"
+              [longitude]="lng" (mapClick)="mapClicked($event)">
+                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+             </agm-map>
+            </ion-content>
+          </ion-col>
+        </ion-row>
+      </div>
     <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Create</ion-button>
   </form>
 </ion-content>

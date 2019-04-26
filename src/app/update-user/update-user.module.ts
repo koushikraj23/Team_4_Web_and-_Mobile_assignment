@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { UpdateUserPage } from './update-user.page';
+import { UpdateUserResolver } from './update-user.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: UpdateUserPage
+    component: UpdateUserPage,
+  
+    resolve: {
+      data: UpdateUserResolver
+    }
   }
 ];
 
@@ -19,8 +24,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule
   ],
-  declarations: [UpdateUserPage]
+  declarations: [UpdateUserPage],
+  providers:[UpdateUserResolver]
 })
 export class UpdateUserPageModule {}

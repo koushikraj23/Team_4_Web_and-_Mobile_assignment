@@ -5,8 +5,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-
-
+import { MouseEvent } from '@agm/core';
 @Component({
   selector: 'app-new-task',
   templateUrl: './new-task.page.html',
@@ -16,6 +15,15 @@ export class NewTaskPage implements OnInit {
 
   validations_form: FormGroup;
   image: any;
+  lat: number = 53.3498; 
+  lng: number = -6.2603;
+  height = 400;
+  
+  mapClicked($event: MouseEvent) {
+    this.lat= $event.coords.lat
+     this.lng= $event.coords.lng    
+      console.log(this.lat)
+  }
 
   constructor(
     private imagePicker: ImagePicker,
@@ -45,7 +53,9 @@ export class NewTaskPage implements OnInit {
       title: value.title,
       description: value.description,
       image: this.image,
-      pTime:value.pTime
+      pTime:value.pTime,
+      lat:this.lat,
+      lng:this.lng
     }
     this.firebaseService.createFood(data)
     .then(

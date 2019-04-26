@@ -5,7 +5,7 @@ import { LoadingController, ToastController, AlertController } from '@ionic/angu
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { MouseEvent } from '@agm/core';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -17,6 +17,16 @@ export class DetailsPage implements OnInit {
   image: any;
   item: any;
   load: boolean = false;
+  myDate:any;
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  height = 400;
+
+  mapClicked($event: MouseEvent) {
+    this.lat= $event.coords.lat
+     this.lng= $event.coords.lng    
+      console.log(this.lat)
+  }
 
   constructor(
     private imagePicker: ImagePicker,
@@ -40,12 +50,15 @@ export class DetailsPage implements OnInit {
      if (data) {
        this.item = data;
        this.image = this.item.image;
+       this.lat=this.item.lat;
+       this.lng=this.item.lng;
+this.myDate=this.item.pTime
      }
     })
     this.validations_form = this.formBuilder.group({
       title: new FormControl(this.item.title, Validators.required),
       description: new FormControl(this.item.description, Validators.required),
-      pTime:new FormControl(this.item.pTime, Validators.required),
+      pTime:new FormControl(this.myDate, Validators.required),
     });
   }
 
@@ -54,7 +67,9 @@ export class DetailsPage implements OnInit {
       title: value.title,
       description: value.description,
       image: this.image ,
-      pTime:value.pTime
+      pTime:value.pTime,
+      lat:this.lat,
+      lng:this.lng
     }
     this.firebaseService.updateTask(this.item.id,data)
     .then(

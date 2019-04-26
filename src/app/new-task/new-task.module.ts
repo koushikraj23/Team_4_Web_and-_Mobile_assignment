@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { NewTaskPage } from './new-task.page';
-
+import { AgmCoreModule } from '@agm/core';
 const routes: Routes = [
   {
     path: '',
@@ -18,7 +18,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDFWvq9-Qwe5EbEwWQ6lQSlwg6Vnszu6cM'
+    })
   ],
   providers: [Location],
   declarations: [NewTaskPage]

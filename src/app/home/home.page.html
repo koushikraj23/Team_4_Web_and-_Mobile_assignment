@@ -5,8 +5,7 @@
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-item [routerLink]="['/update-user']"></ion-item>
-    <ion-title>{{name.payload.doc.data().fName}}</ion-title>
+      <ion-title  [routerLink]="['/update-user']">{{name.payload.doc.data().fName}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
